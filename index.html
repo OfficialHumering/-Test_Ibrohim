@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #0066ff; 
+        }
+        .register-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            text-align: left;
+            width: 350px;
+        }
+        .register-box h1 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .register-box input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            color: #555;
+        }
+        .register-box input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .register-box .register-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .register-box .register-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <h1>Register</h1>
+        
+        <div class="input-group">
+            <input type="text" id="usernameInput" placeholder="Username">
+        </div>
+        
+        <div class="input-group">
+            <input type="password" placeholder="Password">
+        </div>
+        
+        <button class="register-btn" onclick="saveUser()">Register</button>
+    </div>
+
+    <script>
+        function saveUser() {
+            const name = document.getElementById('usernameInput').value;
+            
+ 
+            if (name.trim() !== "") {
+
+                localStorage.setItem('currentUser', name);
+                
+
+                window.location.href = 'main.html';
+            } else {
+                alert("Пожалуйста, введите имя пользователя.");
+            }
+        }
+    </script>
+</body>
+</html>

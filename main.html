@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <span class="welcome">Welcome, <span id="displayUserName">Guest</span></span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <main>
+        <section class="controls">
+            <label for="speed">Voice Speed</label>
+            <input type="range" id="speed" min="0.5" max="2" step="0.1" value="1">
+        </section>
+
+        <section class="lessons-container">
+            <div class="card">
+                <h3>Lesson 1</h3>
+                <p>JavaScript makes websites interactive and fun.</p>
+                <button class="listen-btn">Listen</button>
+            </div>
+            <div class="card">
+                <h3>Lesson 2</h3>
+                <p>LocalStorage saves information in your browser.</p>
+                <button class="listen-btn">Listen</button>
+            </div>
+            <div class="card">
+                <h3>Lesson 3</h3>
+                <p>Authentication checks if a user can access the app.</p>
+                <button class="listen-btn">Listen</button>
+            </div>
+        </section>
+        <button class="stop-btn" onclick="stopVoice()">Stop Voice</button>
+    </main>
+
+    <script>
+
+        window.onload = function() {
+            const savedName = localStorage.getItem('currentUser');
+            if (savedName) {
+                document.getElementById('displayUserName').innerText = savedName;
+            } else {
+
+                window.location.href = 'login.html';
+            }
+        };
+
+        const synth = window.speechSynthesis;
+        const speedInput = document.getElementById('speed');
+
+        document.querySelectorAll('.listen-btn').forEach((btn) => {
+            btn.onclick = () => {
+                const text = btn.parentElement.querySelector('p').innerText;
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = speedInput.value;
+                utterance.lang = 'en-US';
+                synth.cancel(); 
+                synth.speak(utterance);
+            };
+        });
+
+        function stopVoice() {
+            synth.cancel();
+        }
+
+        function logout() {
+        
+            localStorage.removeItem('currentUser');
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
